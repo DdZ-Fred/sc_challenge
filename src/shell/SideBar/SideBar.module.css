@@ -1,0 +1,6 @@
+.root {
+  flex-basis: 250px;
+  display: flex;
+  justify-content: center;
+  background-color: rgba(7, 205, 223, 0.7);
+}

@@ -1,0 +1,7 @@
+.root {
+  display: flex;
+  flex-basis: 50px;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(22, 33, 44, 0.8);
+}
