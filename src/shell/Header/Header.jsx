@@ -1,5 +1,5 @@
 import React from 'react';
-import Title from 'antd/lib/typography/Title';
+import Typography from '@material-ui/core/Typography';
 import classes from './Header.module.css';
 
 const styles = {
@@ -12,9 +12,14 @@ const styles = {
 function Header(props) {
   return (
     <header className={classes.root}>
-      <Title style={styles.title}>
+      <Typography
+        variant="h2"
+        component="h2"
+        gutterBottom
+        style={styles.title}
+      >
         DdZ Artist Library
-      </Title>
+      </Typography>
     </header>
   );
 }

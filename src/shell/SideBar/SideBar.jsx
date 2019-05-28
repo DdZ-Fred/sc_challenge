@@ -1,14 +1,18 @@
 import React from 'react';
-import Title from 'antd/lib/typography/Title';
+import Typography from '@material-ui/core/Typography';
 
 import classes from './SideBar.module.css';
 
 function SideBar(props) {
   return (
     <div className={classes.root}>
-      <Title level={4}>
+      <Typography
+        variant="h5"
+        component="h5"
+        gutterBottom
+      >
         My favorite artists
-      </Title>
+      </Typography>
     </div>
   );
 }

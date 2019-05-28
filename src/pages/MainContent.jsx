@@ -11,7 +11,7 @@ class MainContent extends React.PureComponent {
       <main className={classes.root}>
         <Switch>
           <Route path="/" exact component={Home}/>
-          <Route path="/artist/:id" component={ArtistDetails}/>
+          <Route path="/artists/:mbid" component={ArtistDetails}/>
           <Route path="*" component={BadRoute}/>
         </Switch>
       </main>

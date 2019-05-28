@@ -1,7 +1,7 @@
 .root {
   flex-basis: 80px;
   display: flex;
-  background-color: rgba(26, 129, 224, 0.712);
+  background-color: rgba(126, 186, 243, 0.828);
   justify-content: center;
   align-items: center;
 }
