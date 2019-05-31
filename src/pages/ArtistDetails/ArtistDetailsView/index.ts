@@ -1,0 +1,1 @@
+export { ArtistDetailsView as default } from './ArtistDetailsView';

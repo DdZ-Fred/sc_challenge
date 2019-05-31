@@ -1,5 +1,6 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
+import Icon from '@material-ui/core/Icon';
 import classes from './Header.module.css';
 
 const styles = {
@@ -12,13 +13,15 @@ const styles = {
 function Header(props) {
   return (
     <header className={classes.root}>
+      <Icon fontSize="large">library_music</Icon>
       <Typography
-        variant="h2"
-        component="h2"
+        variant="h4"
+        component="h4"
         gutterBottom
         style={styles.title}
+        title="pronounced 'DeeDeeZ Leeb'"
       >
-        DdZ Artist Library
+        DdZ Lib
       </Typography>
     </header>
   );

@@ -5,14 +5,19 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import Icon from '@material-ui/core/Icon';
 import MatchingArtists from './MatchingArtists';
 import classes from './Home.module.css';
+import { actionCreators as breadcrumbAC } from '../../store/breadcrumb';
 
 interface HomeProps {
 
 }
 
+interface ConnectedHomeProps extends HomeProps {
+  setBreadcrumbEntries: typeof breadcrumbAC.setEntries,
+};
+
 interface HomeState {
   searchValue: string,
-}
+};
 
 const styles = {
   textField: {
@@ -22,7 +27,7 @@ const styles = {
   },
 };
 
-class Home extends React.Component<HomeProps, HomeState> {
+export class Home extends React.Component<ConnectedHomeProps, HomeState> {
   state = {
     searchValue: '',
   };
@@ -35,8 +40,11 @@ class Home extends React.Component<HomeProps, HomeState> {
     this.setState({
       searchValue: value,
     });
-    console.log('CHANGE', value);
   }, 500);
+
+  componentDidMount() {
+    this.props.setBreadcrumbEntries([]);
+  }
 
   render() {
     return (
@@ -44,7 +52,6 @@ class Home extends React.Component<HomeProps, HomeState> {
         <div className={classes.textFieldContainer}>
           <TextField
             id="outlined-adornment-password"
-            // variant="outlined"
             style={styles.textField}
             placeholder="Please type an artist"
             onChange={this.handleOnInputChange}
@@ -65,5 +72,3 @@ class Home extends React.Component<HomeProps, HomeState> {
     );
   }
 };
-
-export default Home;

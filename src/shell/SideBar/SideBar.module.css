@@ -1,6 +1,21 @@
 .root {
   flex-basis: 250px;
   display: flex;
-  justify-content: center;
-  background-color: rgba(7, 205, 223, 0.7);
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  background-color: #3f51b5;
+  box-shadow: inset 0 2px 5px rgba(22,22,22,0.5),
+    inset 0 -2px 5px rgba(22,22,22,0.1);
+  color: rgba(255, 255, 255, 0.7);
+  padding: 10px;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+}
+
+.noFavoriteMessageContainer {
+  margin-top: 22px;
 }

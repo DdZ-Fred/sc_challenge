@@ -1,7 +1,14 @@
 .root {
   display: flex;
-  flex-basis: 50px;
+  height: 50px;
+  min-height: 50px;
   justify-content: center;
   align-items: center;
-  background-color: rgba(22, 33, 44, 0.8);
+  background-color: #3f51b5;
+  color: rgba(255, 255, 255, 0.75);
+  box-shadow: 0 -2px 5px rgba(22,22,22,0.6);
+}
+
+.copyright {
+  margin-right: 5px;
 }

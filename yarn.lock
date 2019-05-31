@@ -8496,6 +8496,11 @@ react-app-polyfill@^1.0.1:
     regenerator-runtime "0.13.2"
     whatwg-fetch "3.0.0"
 
+react-country-flag@^1.0.2:
+  version "1.0.2"
+  resolved "https://extrepo.storetail.net/repository/npm-public/react-country-flag/-/react-country-flag-1.0.2.tgz#c15390c7a032ecc595dd89754b523c81a60c595f"
+  integrity sha512-VaH8vYGe27pLd4xIcWN+KLSs7W6Dm7hwNzXyisPzg+FFfX+q/vChE5J5fT0PEmIcjCxuRIBuVQL4DPuuMvRrvA==
+
 react-dev-utils@^9.0.1:
   version "9.0.1"
   resolved "https://extrepo.storetail.net/repository/npm-public/react-dev-utils/-/react-dev-utils-9.0.1.tgz#5c03d85a0b2537d0c46af7165c24a7dfb274bef2"

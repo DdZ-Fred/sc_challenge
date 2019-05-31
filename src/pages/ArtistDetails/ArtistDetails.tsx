@@ -1,8 +1,16 @@
 import * as React from 'react';
 import { Query } from "react-apollo";
 import { gql } from "apollo-boost";
-import classes from './ArtistDetails.module.css';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import Icon from '@material-ui/core/Icon';
 import { RouteComponentProps } from 'react-router';
+import { withStyles } from '@material-ui/core/styles';
+import { actionCreators as favoriteArtistsAC } from '../../store/favoriteArtists';
+import { actionCreators as breadcrumbAC } from '../../store/breadcrumb';
+import classes from './ArtistDetails.module.css';
+import ArtistDetailsView from './ArtistDetailsView';
 
 // ────────────────────────────────────────────────────────────────────────────────
 //
@@ -18,12 +26,13 @@ interface Release {
   date: string,
 };
 
-interface QData {
+type Gender = 'Male'|'Female'|'Neither';
+export interface QData {
   lookup: {
     artist: {
       name: string,
       country: string,
-      gender: string|null,
+      gender: Gender|null,
       lifeSpan: {
         /** Format: YYYY-MM-DD */
         begin: string,
@@ -53,62 +62,124 @@ type RouteParams = {
   mbid: string
 };
 
-interface ArtistDetailsProps extends RouteComponentProps<RouteParams> {
+export interface ArtistDetailsProps extends RouteComponentProps<RouteParams> {
 
+};
+
+export interface ConnectedArtistDetailsProps extends ArtistDetailsProps {
+  isFavoriteArtist: boolean,
+  setFavoriteArtist: typeof favoriteArtistsAC.setFavoriteArtist,
+  unsetFavoriteArtist: typeof favoriteArtistsAC.unsetFavoriteArtist,
+  setBreadcrumbEntries: typeof breadcrumbAC.setEntries,
+};
+
+
+export const DetailItem: React.SFC<{ prim: string, sec: React.ReactNode}> = (props) => (
+  <ListItem>
+    <ListItemText
+      primary={props.prim}
+      secondary={props.sec}
+    />
+  </ListItem>
+);
+
+const CustomColorIcon: React.SFC<{
+  icon: string,
+  color?: string,
+}> = (props) => {
+  const StyledIcon = withStyles({
+    root: {
+      color: props.color,
+    }
+  })(Icon);
+  return (
+    <StyledIcon fontSize="inherit">{props.icon}</StyledIcon>
+  );
 }
 
-const ArtistDetails: React.SFC<ArtistDetailsProps> = (props) => {
+export const IconListItem: React.SFC<{
+  prim: string,
+  sec?: React.ReactNode,
+  icon: string,
+  iconColor?: string,
+  button?: boolean,
+  component?: React.ReactNode,
+  to?: string
+}> = ({ prim, sec, icon, iconColor, button, ...rest }) => {
   return (
-    <div className={classes.root}>
-      <Query<QData, QVariables>
-        query={gql`
-          {
-            lookup {
-              artist(mbid: "${props.match.params.mbid}") {
-                name,
-                country,
-                gender,
-                lifeSpan {
-                  begin,
-                  end,
-                  ended
-                },
-                releases {
-                  totalCount,
-                  nodes {
-                    id,
-                    title,
-                    date,
-                    country
+    <ListItem
+      // @ts-ignore: Shouldn't trigger an error
+      button={button? true : undefined}
+      {...rest}
+    >
+      <ListItemIcon>
+        <CustomColorIcon icon={icon} color={iconColor}/>
+      </ListItemIcon>
+      <ListItemText
+        primary={prim}
+        secondary={sec||undefined}
+      />
+    </ListItem>
+  );
+};
+IconListItem.defaultProps = {
+  sec: undefined,
+  iconColor: undefined,
+  button: false,
+  component: undefined,
+  to: undefined,
+};
+
+export function withDefaultValue<T>(value: T) {
+  if (!value) {
+    return 'Unknown' as 'Unknown';
+  }
+  return value;
+};
+
+
+export class ArtistDetails extends React.Component<ConnectedArtistDetailsProps> {
+  render() {
+    return (
+      <div className={classes.root}>
+        <Query<QData, QVariables>
+          query={gql`
+            {
+              lookup {
+                artist(mbid: "${this.props.match.params.mbid}") {
+                  name,
+                  country,
+                  gender,
+                  lifeSpan {
+                    begin,
+                    end,
+                    ended
+                  },
+                  releases {
+                    totalCount,
+                    nodes {
+                      id,
+                      mbid,
+                      title,
+                      date,
+                      country
+                    }
                   }
                 }
               }
             }
-          }
-        `}
-      >
-        {({ loading, error, data }) => {
-          if (loading) {
-            return (
-              <div>...LOADING</div>
-            );
-          }
-
-          if (error) {
-            return (
-              <p>ERROR: :(</p>
-            );
-          }
-
-          return (
-            <div>
-              DATA OK
-            </div>
-          )
-        }}
-      </Query>
-    </div>
-  );
+          `}
+        >
+          {({ loading, error, data }) => (
+            <ArtistDetailsView
+              {...this.props}
+              loading={loading}
+              error={error}
+              data={data}
+            />
+          )}
+        </Query>
+      </div>
+    );
+  }
 }
-
-export default ArtistDetails;

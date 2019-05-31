@@ -6,6 +6,12 @@ html, body {
   padding: 0;
 }
 
+:root {
+  /* MY COLOR SCHEME */
+  --primary-color: rgba(63, 81, 181, 0.7);
+  --secondary-color: rgba(255, 105, 65, 0.7);
+}
+
 #root {
   display: flex;
   height: 100%;

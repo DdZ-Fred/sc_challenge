@@ -7,6 +7,9 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { FixedSizeList, ListChildComponentProps } from 'react-window';
 import { Link } from 'react-router-dom'
+import Icon from '@material-ui/core/Icon';
+import { withStyles } from '@material-ui/core/styles';
+import classes from './MatchingArtists.module.css';
 
 const styles = {
   container: {
@@ -40,7 +43,10 @@ interface MatchingArtistsProps {
 const MatchingArtists: React.SFC<MatchingArtistsProps> = (props) => {
   if (!props.searchValue) {
     return (
-      <div>NO SEARCH VALUE</div>
+      <div className={classes.noSearchValue}>
+        <Icon fontSize="large">mood</Icon>
+        <span>Enter an artist above</span>
+      </div>
     );
   }
 
@@ -74,10 +80,13 @@ const MatchingArtists: React.SFC<MatchingArtistsProps> = (props) => {
 
         if (!data!.search.artists.nodes.length) {
           return (
-            <div>NO RESULTS</div>
+            <div className={classes.noResult}>
+              <Icon fontSize="large">sentiment_dissatisfied</Icon>
+              <span>No Result</span>
+              <span>Please try something else</span>
+            </div>
           );
         }
-        console.log('DATA', data);
 
         return (
           <List component="nav">
