@@ -5,10 +5,8 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import { FixedSizeList, ListChildComponentProps } from 'react-window';
 import { Link } from 'react-router-dom'
 import Icon from '@material-ui/core/Icon';
-import { withStyles } from '@material-ui/core/styles';
 import classes from './MatchingArtists.module.css';
 
 const styles = {
